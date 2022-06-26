@@ -1,0 +1,30 @@
+Creat a clothing store database
+
+
+Create Table clothes (id Integer Primary Key, name text, quantity integer, price integer, rating integer);
+
+Insert into clothes Values (1, "Sweatshirt", 10, 49.99, 5);
+Insert into clothes values (2, "Short Sleeve Tees", 5, 24.99, 4);
+Insert into clothes values (3, "Long Sleeve Tees", 7, 34.99, 4.5);
+Insert into clothes values (4, "Cut Off Shirts", 3, 24.99, 3);
+Insert into clothes values (5, "5 Inch Inseam Cargo Shorts", 8, 29.99, 4);
+Insert into clothes values (6, "7 Inche Inseam Cargo Shorts", 6, 29.99, 3.5);
+Insert into clothes values (7, "5 Inch Inseam Athletic Shorts", 4, 27.99, 5);
+Insert into clothes values (8, "7 Inch Inseam Athletic Shorts", 8, 27.99, 4.5);
+Insert into clothes values (9, "Boxers", 12, 9.99, 3.5);
+Insert into clothes values (10, "Boxer Briefs", 7, 9.99, 4.5);
+Insert into clothes values (11, "Ankle Socks", 10, 9.99, 4);
+Insert into clothes values (12, "High Socks", 7, 9.99, 5);
+Insert into clothes values (13, "Black Shoes", 4, 99.99, 5);
+Insert into clothes values (14, "White Shoes", 3, 99.99, 5);
+Insert into clothes values (15, "Blue Jeans", 11, 54.99, 4);
+
+Display the items with the highest rating and prices of those items highest to lowest
+SELECT * FROM clothes Where rating =5 Order By price desc;
+
+Display the total quantity of items remaining in stock for those highest rated
+Select Sum(quantity) from clothes
+
+Display the items ordered by price. 
+SELECT * FROM clothes
+ORDER BY price asc; 
