@@ -1,0 +1,103 @@
+/*
+Source:
+https://www.kaggle.com/jacobbaruch/nba-player-of-the-week 
+*/
+CREATE TABLE players(
+   Player            TEXT,
+   Team              TEXT,
+   Conference        TEXT,
+   Date              TEXT,
+   Position          TEXT,
+   Height            TEXT,
+   Weight            INTEGER,
+   Age               INTEGER,
+   Draft_Year        INTEGER,
+   Seasons_in_league INTEGER,
+   Season            TEXT,
+   Season_short      INTEGER,
+   Predraft_Team     TEXT,
+   Real_value        REAL,
+   Height_CM         INTEGER,
+   Weight_KG         INTEGER,
+   Last_Season       INTEGER
+);
+
+
+--- Displaying NBA Players that were drafted after 2000 and went to Duke that had been Player of the Week.
+Select * from players where draft_year > 2000 AND Predraft_Team = "Duke"
+Group By Player;
+
+
+--- Displaying some of the overall biggest NBA Players that have won NBA Player of the Week.
+Select * from players where Height > 7 OR Weight > 270
+Group By Player;
+
+
+--- Displaying players that were drafted in 2000 from the Eastern Conference Central Division that had won Player of the Week. 
+Select * from players where Team IN ("Milwaukee Bucks", "Cleveland Cavaliers", "Detroit Pistons", "Indiana Pacers", "Chicago Bulls") AND Draft_Year = 2000
+Group By Player;
+
+
+--- Displaying players drafted in 2000 from the Western Conference that had won Player of the Week. 
+Select * from players where Conference NOT IN ("East") AND Draft_Year = 2000
+Group By Player;
+
+
+--- Displaying Max Height of NBA Players to ever win NBA Player of the Week.
+Select Player, MAX(Height) as max_height from players
+Group By Player
+Having max_height > "7";
+
+
+--- Displaying Max Weight of NBA Players to ever win NBA Player of the Week.
+Select Player, MIN(Weight) as min_weight from players
+Group By Player
+Having min_weight < 175;
+
+
+--- Displaying the average age from NBA players that have ever won NBA Player of the Week.
+Select Player, AVG("Age") as avg_age from players
+Group By Player
+Having avg_age > 17;
+
+
+--- Displaying the total number of players to win NBA Player of the Week and grouping them into position types. 
+Select Count(*),
+    Case
+        When Position = "PG" or "SG" then "guards"
+        When Position = "SF" or "PF" then "wings"
+        ELSE "bigs"
+End as "position_type"
+From players
+Group By position_type;
+
+
+--- Displaying the number of players to win NBA Player of the Week that was drafted from the Big Ten. 
+Select Count(*),
+    Case
+        When "Predraft_Team" = "Minnesota"
+        When "Predraft_Team" = "Wisconsin"
+        When "Predraft_Team" = "Nebraska"
+        When "Predraft_Team" = "Iowa"
+        When "Predraft_Team" = "Illinois"
+        When "Predraft_Team" = "Northwestern"
+        When "Predraft_Team" = "Purdue"
+        When "Predraft_Team" = "Indiana"
+        When "Predraft_Team" = "Michigan"
+        When "Predraft_Team" = "Michigan State"
+        When "Predraft_Team" = "Ohio State"
+        When "Predraft_Team" = "Rutgers"
+        When "Predraft_Team" = "Maryland"
+        Else "Other"
+End as "Big_Ten"
+From players
+Group By Big_Ten;
+
+
+--- Displaying which NBA Players that were drafted by these two teams to ever win NBA Player of the Week.
+Select * from players where "Predraft_Team" = "Milwaukee Bucks" and "Predraft_Team" = "Phoneix Suns";
+
+
+--- Displaying the information for NBA Player of the Week by these two players.
+Select * from players where "Player" = "Giannis Antetokounmpo" OR "Player" = "Anthony Davis"
+Group By Player;
