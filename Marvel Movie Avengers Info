@@ -1,0 +1,83 @@
+/* Create table about the people and what they do here */
+
+Create Table Marvel_Movie_Stars (id Integer Primary Key, name text, character text, number_of_movies integer);
+
+INSERT INTO Marvel_Movie_Stars VALUES
+(1, "Robert Downy Jr.", "Iron Man", 9),
+(2, "Chris Evans", "Captain America", 11),
+(3, "Scarlet Johansen", "Black Widow", 8),
+(4, "Mark Ruffalo", "Hulk", 9),
+(5, "Chris Hemsworth", "Thor", 9),
+(6, "Jeremy Renner", "Hawkeye", 5);
+
+
+Create Table Movie_or_Show_Info (id integer primary key, movie_star_id text, year_of_first_film integer, film_length_minutes integer, rating integer);
+
+INSERT INTO Movie_or_Show_Info VALUES
+(1, 1, 2008, 126, 94),
+(2, 2, 2011, 124, 79),
+(3, 4, 2003, 138, 62),
+(4, 5, 2011, 114, 77),
+(5, 3, 2021, 133, 79),
+(6, 6, 2021, 292, 92);
+
+
+Create Table Character_Info (id integer primary key, name text, main_power text, location text, first_movie_or_show_timeline integer, where_powers_came_from text);
+
+INSERT INTO Character_Info VALUES
+(1, "Iron Man", "Armor Suit, Intelligence, and Flight", "Los Angeles, CA", 2008, "Born With and Heart Implant"),
+(2, "Captain America", "Superhuman and Vibranium Shield", "Brooklyn, NY", 2011, "Super Solider Serum and Wakanda Materials for Shield"),
+(3, "Thor", "God of Lightening and Mjollnir", "Asgard", 2011, "Born with it and being worthy of Mjollnir"),
+(4, "Hulk", "Anger, Superhuman Strength, Nearly Unstoppable", "Dayton, OH", 2003, "Incorrect Super Solider Serum"),
+(5, "Black Widow", "Skilled Assassin", "Russia", 2021, "Intense Training"),
+(6, "Hawkeye", "Skilled Assassin", "Waverly, IA", 2021, "Intense Training");
+
+
+--- Displaying the actors and what their first project's run-time was. Then to see if there was a correlation between how long the project was 
+and how well it was rated. It displayed that there was no correlation, longer movies did not always receive high ratings. 
+Select Marvel_Movie_Stars.name, Movie_or_Show_Info.film_length_minutes, Movie_or_Show_info.rating 
+From Marvel_Movie_Stars
+Join Movie_or_Show_Info
+On Marvel_Movie_Stars.id = Movie_or_Show_Info.movie_star_id
+Order by film_length_minutes desc;
+
+
+--- Displaying each actor, their character, how many projects that character has been in, what their main power was, and what their rating was. 
+This was to get a better look at what each actor's role was and perhaps if the higher rating they had meant the more films they would be in. I did not
+see a correlation between the two. 
+Select m.name, m.character, m.number_of_movies, c.main_power, i.rating
+From Marvel_Movie_Stars as m
+Join Movie_or_Show_Info as i
+On m.id = i.movie_star_id
+Join Character_Info as c
+On c.first_movie_or_show_timeline = i.year_of_first_film
+Group By character
+Order By number_of_movies desc;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
